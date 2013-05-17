@@ -1,8 +1,9 @@
-function Dot(board)
+function Dot(board,id)
 {
 	console.log("create dot");
 	this.board = board;
-	this.dot = $("<div class='dot'></div>");
+	this.id = id;
+	this.dot = $("<div class='dot' id='dot-"+this.id+"'></div>");
 	this.board.append(this.dot);
 	
 	this.startPositions = ["top","right","bottom","left"];
@@ -17,6 +18,18 @@ Dot.prototype = {
 	{
 		var self=this;
 		var ele = self.dot;
+		
+		var w = self.board.width();
+		var h = self.board.height();
+		var size;
+		if(w>h){
+			size=w*.05;
+		}else{
+			size=h*.05;
+		}
+		
+		ele.height(size);
+		ele.width(size);
 		ele.css('top', 'auto');
 		ele.css('right', 'auto');
 		ele.css('bottom', 'auto');

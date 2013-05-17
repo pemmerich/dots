@@ -30,21 +30,22 @@ body
 	background:blue;
 	left:50%;
 	top:50%;
-	
+	z-index: 100;
 }
 
 #clock
 {
 	position: absolute;
-	width:100px;
-	height:100px;
-	line-height:100px;
+	width:200px;
+	height:200px;
+	/*line-height:200px;*/
 	font-family:Helvetica, Arial, sans-serif;
 	font-size:62px;
 	text-align:center;
 	top:50%;
 	left:50%;
-	margin-left:-50px;
-	margin-top:-50px;
+	margin-left:-100px;
+	margin-top:-100px;
+	cursor:pointer;
 	color:#bbbbbb;
 }
