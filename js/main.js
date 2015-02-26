@@ -2,7 +2,7 @@
 	
 	
 	// Creating our presentation and global namespace "app"
-	  global.game = new DotsGame($('#game-board'),10);
+	  global.game = new DotsGame($('#game-board'),5);
 
  
 })(window);

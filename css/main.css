@@ -6,10 +6,19 @@ body
 #game-board
 {
 	position: absolute;
-	overflow:hidden;
-	background:#dddddd;
 	width:100%;
 	height:100%;
+	max-width: 500px;
+	max-height: 888px;
+	background-color: #000000;
+	padding:0px;
+	margin:0px;
+	overflow: hidden;
+
+	background-repeat: no-repeat;
+	background-position: bottom;
+	background-size:100%;
+	background-image: url('../images/bg.jpg');
 }
 
 
@@ -18,34 +27,68 @@ body
 	position:absolute;
 	width:50px;
 	height:50px;
-	background:red;
+	
+	/*background-color:rgba(255,0,0,0.1);*/
+	background-repeat: no-repeat;
+	background-position: bottom;
+	background-size:auto 100%;
+	background-image: url('../images/fireball.png');
 	
 }
 
 .hero
 {
 	position:absolute;
-	width:50px;
-	height:50px;
-	background:blue;
+	
+	width:70px;
+	height:100px;
+	/*background-color:rgba(255,0,0,0.1);*/
+	background-repeat: no-repeat;
+	background-position: bottom;
+	background-size: auto 100%;
+	background-image: url('../images/character_one.png');
 	left:50%;
 	top:50%;
+	
 	z-index: 100;
+
+}
+
+.ui-text-normal
+{
+	font-family:Helvetica, Arial, sans-serif;
+	font-size:48px;
+	font-weight: bold;
+	cursor:pointer;
+	color:#bbbbbb;
 }
 
 #clock
 {
 	position: absolute;
-	width:200px;
+	width:400px;
 	height:200px;
-	/*line-height:200px;*/
-	font-family:Helvetica, Arial, sans-serif;
-	font-size:62px;
+	
+	
 	text-align:center;
-	top:50%;
+	top:40%;
 	left:50%;
-	margin-left:-100px;
+	margin-left:-200px;
 	margin-top:-100px;
-	cursor:pointer;
-	color:#bbbbbb;
+	
+}
+
+#lives
+{
+	position: absolute;
+	width:200px;
+	
+	
+	text-align:center;
+	top:40%;
+	left:50%;
+	font-size:32px;
+	margin-left:-100px;
+	margin-top:-150px;
+	
 }

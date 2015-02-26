@@ -4,6 +4,7 @@ function DotsGame(board,numDots)
 	this.board = board;
 	this.numDots = numDots;
 	this.collisions = 0;
+	this.collisionsAllowed = 4;
 	this.elapsedTime;
 	this.hero = $("<div class='hero'></div>");
 	this.board.append(this.hero);
@@ -11,7 +12,10 @@ function DotsGame(board,numDots)
 	this.startTime;
 	this.touching;
 	
-	this.initGame();
+	setTimeout(function(){
+		this.initGame();
+	},1000);
+	
 }
 
 DotsGame.prototype = {
@@ -27,17 +31,19 @@ DotsGame.prototype = {
 		var h = self.board.height();
 		var size;
 		if(w>h){
-			size=w*.05;
+			size=w*.15;
 		}else{
-			size=h*.05;
+			size=h*.15;
 		}
-		$('.hero').height(size);
-		$('.hero').width(size);
+		//$('.hero').height(size);
+		//$('.hero').width(size);
 		
-		self.board.append("<div id='clock'></div>");
+		self.board.append("<div id='clock' class='ui-text-normal'></div>");
+		self.board.append("<div id='lives' class='ui-text-normal'></div>");
 		self.startTime = new Date().getTime();
 		self.elapsedTime=0;
-		$('#clock').html(self.elapsedTime);
+		
+		
 		
 		for(i=0; i < self.numDots; i++){
 			var dot = new Dot(self.board,i);
@@ -51,7 +57,7 @@ DotsGame.prototype = {
 				 console.log("touch");
 				 self.touching=true;
 			        self.hero.offset({
-			            top: e.originalEvent.touches[0].pageY - self.hero.height() / 2,
+			            top: e.originalEvent.touches[0].pageY - self.hero.height()*1.5,
 			            left: e.originalEvent.touches[0].pageX - self.hero.width() / 2
 			        });
 			    });
@@ -63,7 +69,7 @@ DotsGame.prototype = {
 		} else {
 			 $(document).bind("mousemove",function(e) {
 			        self.hero.offset({
-			            top: e.pageY - self.hero.height() / 2,
+			            top: e.pageY - self.hero.height(),
 			            left: e.pageX - self.hero.width() / 2
 			        });
 			    });
@@ -80,6 +86,7 @@ DotsGame.prototype = {
 			var ay = 0; 
 			
 			//alert("access to motion");
+			/*
 			window.ondevicemotion = function(event) {
 				
 				if(!self.touching){
@@ -110,6 +117,7 @@ DotsGame.prototype = {
 				}
 				
 			}
+			*/
 		}else{
 			//alert("no access to motion");
 		}
@@ -121,21 +129,26 @@ DotsGame.prototype = {
 			self.elapsedTime = Math.floor((curTime.getTime()-self.startTime)/1000);
 			curTime = null;
 			
-			$('#clock').html(Math.floor(self.elapsedTime));
+			$('#clock').html("SCORE:"+Math.floor(self.elapsedTime));
 			
 			if(list.length >0){
 				self.collisions += list.length;
+				console.log("collisions = "+self.collisions+" list lenght = "+list.length);
 				for (var i = 0; i < list.length; i++) {
 					console.log(list[i]);
 					//$(list[i]).remove();
 					var id = Number($(list[i]).attr('id').replace("dot-",""));
 					self.dots[id].initDot();
 				}
-				if(self.collisions >= self.numDots){
+				if(self.collisions >= self.collisionsAllowed){
 					$('#clock').append("<br>GAME OVER");
 					clearInterval(dotsInterval);
 				}
 			}
+
+			var lives = "LIVES: "+(self.collisionsAllowed-self.collisions);
+			$('#lives').html(lives);
+
 		},10);
 		
 	   
