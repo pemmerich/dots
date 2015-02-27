@@ -6,7 +6,12 @@ function Dot(board,id)
 	this.dot = $("<div class='dot' id='dot-"+this.id+"'></div>");
 	this.board.append(this.dot);
 	
-	this.startPositions = ["top","right","bottom","left"];
+	if("ontouchstart" in window) {
+		this.startPositions = ["top","right","left"];
+	}else{
+		this.startPositions = ["top","right","bottom","left"];
+	}
+	
 
 	
 	this.initDot();
@@ -60,6 +65,18 @@ Dot.prototype = {
 		});
 		
 		
+		
+	   
+	},
+	removeDot:function()
+	{
+		var self=this;
+		var ele = self.dot;
+		
+		
+		ele.remove();
+		ele.stop(true);
+		ele = null;
 		
 	   
 	}

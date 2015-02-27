@@ -6,15 +6,14 @@ function DotsGame(board,numDots)
 	this.collisions = 0;
 	this.collisionsAllowed = 4;
 	this.elapsedTime;
-	this.hero = $("<div class='hero'></div>");
-	this.board.append(this.hero);
-	this.dots=[];
+	this.hero;
+	this.dots;
 	this.startTime;
 	this.touching;
+	this.monitoring=false;
 	
-	setTimeout(function(){
-		this.initGame();
-	},1000);
+	this.initGame();
+	
 	
 }
 
@@ -37,24 +36,32 @@ DotsGame.prototype = {
 		}
 		//$('.hero').height(size);
 		//$('.hero').width(size);
-		
+		self.hero = $("<div class='hero'></div>");
+		self.board.append(self.hero);
+
 		self.board.append("<div id='clock' class='ui-text-normal'></div>");
 		self.board.append("<div id='lives' class='ui-text-normal'></div>");
+		self.board.append("<div id='replay' class='ui-text-small ui-btn'>Replay</div>");
+		self.board.append("<div id='menu' class='ui-text-small ui-btn'>Menu</div>");
 		self.startTime = new Date().getTime();
 		self.elapsedTime=0;
 		
+		$("#replay").bind("click",function(e) {
+			console.log("replay");
+			self.replayGame();
+				 
+		});
 		
-		
-		for(i=0; i < self.numDots; i++){
-			var dot = new Dot(self.board,i);
-			self.dots.push(dot);
-		}
+		self.createDots();
 		
 		
 		
 		if("ontouchstart" in window) {
 			 $(document).bind("touchstart touchmove",function(e) {
 				 console.log("touch");
+				 if(!self.monitoring){
+				 	self.monitorDots();
+				 }
 				 self.touching=true;
 			        self.hero.offset({
 			            top: e.originalEvent.touches[0].pageY - self.hero.height()*1.5,
@@ -73,55 +80,37 @@ DotsGame.prototype = {
 			            left: e.pageX - self.hero.width() / 2
 			        });
 			    });
+			 self.monitorDots();
 		}
 		
 		
 		
-		if("ondeviceorientation" in window){
-			var vx=0;
-			var vy=0;
-			var x=self.board.width()/2;
-			var y=self.board.height()/2;
-			var ax = 0;  
-			var ay = 0; 
-			
-			//alert("access to motion");
-			/*
-			window.ondevicemotion = function(event) {
-				
-				if(!self.touching){
-					ax = event.accelerationIncludingGravity.x;  
-					ay = event.accelerationIncludingGravity.y;  
-				
-				
-					var landscapeOrientation = window.innerWidth/window.innerHeight > 1;
-					if ( landscapeOrientation) {
-						vx =  ay;
-						vy =  ax;
-					} else {
-						vy = - ay;
-						vx =  ax;
-					}
-					vx = vx * 6;
-					vy = vy * 6;
-					y = parseInt(y + vy);
-					x = parseInt(x + vx);
-				
-					if (x<0) { x = 0; vx = -vx; }
-					if (y<0) { y = 0; vy = -vy; }
-					if (x>self.board.width()-20) { x = self.board.width()-20; vx = -vx; }
-					if (y>self.board.height()-20) { y = self.board.height()-20; vy = -vy; }
-				
-					$('.hero').css('top', y + 'px');
-					$('.hero').css('left', x + 'px');
-				}
-				
-			}
-			*/
-		}else{
-			//alert("no access to motion");
-		}
+	   
+	},
+	replayGame:function(){
+
+		var self=this;
+		console.log(" replay dots game ");
+
+		self.collisions = 0;
+
+		self.board.append(self.hero);
+
+		$('#replay').css({"display":"none"});
+		$('#menu').css({"display":"none"});
+
+		self.startTime = new Date().getTime();
+		self.elapsedTime=0;
+
+		self.createDots();
 		
+		self.monitorDots();
+
+	},
+	monitorDots:function(){
+		var self=this;
+		console.log(" start monitor dots game ");
+		self.monitoring=true;
 		var dotsInterval = setInterval(function(){
 			var list = $(".hero").collision(".dot");
 			
@@ -143,6 +132,13 @@ DotsGame.prototype = {
 				if(self.collisions >= self.collisionsAllowed){
 					$('#clock').append("<br>GAME OVER");
 					clearInterval(dotsInterval);
+					self.monitoring=false;
+					for(i=0; i < self.dots.length; i++){
+						self.dots[i].removeDot();
+					}
+					$('#replay').css({"display":"block"});
+					$('#menu').css({"display":"block"});
+					self.hero.remove();
 				}
 			}
 
@@ -150,8 +146,14 @@ DotsGame.prototype = {
 			$('#lives').html(lives);
 
 		},10);
-		
-	   
+	},
+	createDots:function(){
+		var self = this;
+		self.dots=[];
+		for(i=0; i < self.numDots; i++){
+			var dot = new Dot(self.board,i);
+			self.dots.push(dot);
+		}
 	}
 	
 	
