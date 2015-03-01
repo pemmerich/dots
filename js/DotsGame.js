@@ -155,6 +155,7 @@ DotsGame.prototype = {
 					//$(list[i]).remove();
 					var id = Number($(list[i]).attr('id').replace("dot-",""));
 					self.dots[id].initDot();
+					self.flash();
 					id = null;
 				}
 				if(self.collisions >= self.collisionsAllowed){
@@ -229,6 +230,12 @@ DotsGame.prototype = {
 		} else {
 			 $(document).unbind("mousemove");
 		}
+	},
+	flash:function(){
+		$("#flash").css("display","inline");
+		setTimeout(function(){
+			$("#flash").css("display","none");
+		},50);
 	}
 	
 	
