@@ -28,6 +28,7 @@ Dot.prototype = {
 		
 		var w = self.board.width();
 		var h = self.board.height();
+      
 		var size;
 		if(w>h){
 			size=w*.05;
@@ -35,7 +36,7 @@ Dot.prototype = {
 			size=h*.05;
 		}
 		
-		ele.css('display','none');
+		//ele.css('display','none');
 		ele.height(size);
 		ele.width(size);
 		ele.css('top', 'auto');
@@ -45,7 +46,7 @@ Dot.prototype = {
 		
 		var startPosition = self.startPositions[Math.floor(Math.random() * self.startPositions.length)];
 		//console.log(" init dot ");
-		
+        //alert("start position = "+startPosition);
 		var size = ele.width();
 		ele.css(startPosition,'-'+size+'px');
 		
@@ -67,7 +68,7 @@ Dot.prototype = {
 			self.initDot();
 		});
 		
-		ele.css('display','inline');
+		//ele.css('display','inline');
 		
 	   
 	},
