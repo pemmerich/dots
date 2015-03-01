@@ -124,7 +124,7 @@ DotsGame.prototype = {
 	},
 	addHero:function(){
 		var self = this;
-		self.hero = $("<div class='hero'></div>");
+		self.hero = $("<div class='hero'><div class='hit'></div></div>");
 		self.hero.addClass(self.heroType);
 		self.board.append(self.hero);
 	},
@@ -137,8 +137,8 @@ DotsGame.prototype = {
 			best=0;
 		}
 		self.dotsInterval = setInterval(function(){
-			console.log("dots interval");
-			var list = $(".hero").collision(".dot");
+			//console.log("dots interval");
+			var list = $(".hit").collision(".dot");
 			
 			var curTime = new Date();
 			self.elapsedTime = Math.floor((curTime.getTime()-self.startTime)/1000);
@@ -147,14 +147,15 @@ DotsGame.prototype = {
 			
 			$('#score').html("SCORE: "+score+"<br>BEST: "+best);
 			
-			if(list.length >0){
+			if(list.length > 0){
 				self.collisions += list.length;
-				console.log("collisions = "+self.collisions+" list lenght = "+list.length);
+				//console.log("collisions = "+self.collisions+" list lenght = "+list.length);
 				for (var i = 0; i < list.length; i++) {
-					console.log(list[i]);
+					//console.log(list[i]);
 					//$(list[i]).remove();
 					var id = Number($(list[i]).attr('id').replace("dot-",""));
 					self.dots[id].initDot();
+					id = null;
 				}
 				if(self.collisions >= self.collisionsAllowed){
 					$('#score').append("<br>GAME OVER");
@@ -173,11 +174,12 @@ DotsGame.prototype = {
 					self.hero.remove();
 				}
 			}
-
+			score=null;
 			var lives = "LIVES: "+(self.collisionsAllowed-self.collisions);
 			$('#lives').html(lives);
+			lives=null;
 
-		},10);
+		},100);
 	},
 	createDots:function(){
 		var self = this;
@@ -191,18 +193,18 @@ DotsGame.prototype = {
 		var self = this;
 		if("ontouchstart" in window) {
 			 $(document).bind("touchstart touchmove",function(e) {
-				 console.log("touch");
+				 //console.log("touch");
 				 if(!self.monitoring){
 				 	self.monitorDots();
 				 }
 				 self.touching=true;
 			        self.hero.offset({
-			            top: e.originalEvent.touches[0].pageY - self.hero.height()*1.5,
+			            top: e.originalEvent.touches[0].pageY - self.hero.height()*1.25,
 			            left: e.originalEvent.touches[0].pageX - self.hero.width() / 2
 			        });
 			    });
 			 $(document).bind("touchend",function(e) {
-				 console.log("touch end");
+				 //console.log("touch end");
 				 self.touching=false;
 			       
 			    });

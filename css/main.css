@@ -21,6 +21,21 @@ body
 	background-image: url('../images/bg.jpg');
 }
 
+#flash
+{
+	position: absolute;
+	width:100%;
+	height:100%;
+	max-width: 500px;
+	max-height: 888px;
+	background-color: #ffffff;
+	padding:0px;
+	margin:0px;
+	overflow: hidden;
+
+	display: none;
+}
+
 
 .dot
 {
@@ -52,6 +67,26 @@ body
 	
 	z-index: 100;
 
+}
+
+.hit
+{
+	width:70%;
+	height: 80%;
+}
+
+.hero_one .hit
+{
+	
+	margin: 10% 20% 10% 10%;
+	/*background-color: red;*/
+}
+
+.hero_two .hit
+{
+	
+	margin: 10% 10% 10% 20%;
+	/*background-color: blue;*/
 }
 
 .hero_one

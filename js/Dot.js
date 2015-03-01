@@ -24,6 +24,8 @@ Dot.prototype = {
 		var self=this;
 		var ele = self.dot;
 		
+		ele.stop(true);
+		
 		var w = self.board.width();
 		var h = self.board.height();
 		var size;
@@ -33,6 +35,7 @@ Dot.prototype = {
 			size=h*.05;
 		}
 		
+		ele.css('display','none');
 		ele.height(size);
 		ele.width(size);
 		ele.css('top', 'auto');
@@ -64,7 +67,7 @@ Dot.prototype = {
 			self.initDot();
 		});
 		
-		
+		ele.css('display','inline');
 		
 	   
 	},
