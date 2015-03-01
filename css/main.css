@@ -18,7 +18,7 @@ body
 	background-repeat: no-repeat;
 	background-position: bottom;
 	background-size:100%;
-	/*background-image: url('../images/bg.jpg');*/
+	background-image: url('../images/bg.jpg');
 }
 
 
@@ -42,22 +42,48 @@ body
 	
 	width:70px;
 	height:100px;
-	background-color:rgba(255,0,0,0.7);
+	/*background-color:rgba(255,0,0,0.7);*/
 	background-repeat: no-repeat;
 	background-position: bottom;
 	background-size: auto 100%;
 	/*background-image: url('../images/character_one.png');*/
 	left:50%;
-	top:50%;
+	top:55%;
 	
 	z-index: 100;
 
 }
 
+.hero_one
+{
+	background-image: url('../images/character_one.png');
+}
+
+.hero_two
+{
+	background-image: url('../images/character_two.png');
+}
+
+#hero_one
+{
+	width:100px;
+	height:130px;
+	margin-left:-100px;
+	
+}
+
+#hero_two
+{
+	width:100px;
+	height:130px;
+	margin-left: 20px;
+	
+}
+
 .ui-text-normal
 {
 	font-family:Helvetica, Arial, sans-serif;
-	font-size:48px;
+	font-size:38px;
 	font-weight: bold;
 	cursor:pointer;
 	color:#bbbbbb;
@@ -78,7 +104,7 @@ body
 	width: 100px;
 	height: 50px;
 	line-height: 50px;
-	background-color: blue;
+	background-color: white;
 	border-radius: 10px;
 }
 
@@ -89,7 +115,7 @@ body
 	top:70%;
 	left:50%;
 	margin-left:-50px;
-	margin-top:-100px;
+	margin-top:-70px;
 }
 
 #menu
@@ -99,16 +125,31 @@ body
 	top:70%;
 	left:50%;
 	margin-left:-50px;
-	margin-top:-25px;
+	margin-top:-5px;
 }
 
-#clock
+#score
 {
 	position: absolute;
 	width:400px;
 	height:200px;
+	line-height: 50px;
 	
+	text-align:center;
+	top:40%;
+	left:50%;
+	margin-left:-200px;
+	margin-top:-100px;
 	
+}
+
+#choose
+{
+	position: absolute;
+	width:400px;
+	height:200px;
+	font-size: 48px;
+	line-height: 50px;
 	text-align:center;
 	top:40%;
 	left:50%;
@@ -126,8 +167,8 @@ body
 	text-align:center;
 	top:40%;
 	left:50%;
-	font-size:32px;
+	font-size:38px;
 	margin-left:-100px;
-	margin-top:-150px;
+	margin-top:-145px;
 	
 }
